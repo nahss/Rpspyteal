@@ -1,0 +1,58 @@
+{
+  "name": "rps",
+  "methods": [
+    {
+      "name": "create_challenge",
+      "args": [
+        {
+          "type": "pay",
+          "name": "payment"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "accept_challenge",
+      "args": [
+        {
+          "type": "pay",
+          "name": "payment"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "play",
+      "args": [
+        {
+          "type": "string",
+          "name": "play"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "reveal",
+      "args": [
+        {
+          "type": "account",
+          "name": "account1"
+        },
+        {
+          "type": "account",
+          "name": "account2"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    }
+  ],
+  "networks": {}
+}
