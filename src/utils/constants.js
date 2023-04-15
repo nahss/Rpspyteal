@@ -126,3 +126,18 @@ export const abi = {
     ],
     "networks": {}
   }
+
+export const moves = {
+    'Rock': 'r',
+    'R': 'r',
+    'r': 'r',
+    'rock': 'r',
+    'Paper' :'p',
+    'P': 'p',
+    'p': 'p',
+    'paper': 'p',
+    'Scissors': 's',
+    'S': 's',
+    's': 's',
+    'scissors': 's',
+}

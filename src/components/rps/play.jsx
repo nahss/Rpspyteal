@@ -79,9 +79,17 @@ const Playreveal = ({address, fetchBalance}) => {
             </div>
             </NavLink>
 
-        <h3>Player1_count:{p1wins}</h3>
-        <h3>Player2_count:{p2wins}</h3>
-        <h3>Draw_count:{draws}</h3>
+
+        <h4>Game rules</h4>
+        <p>1 Both players can register play in no certain order i.e regardless of player status</p>
+        <p>2 Player 2 must click the reveal winner button first, then player 1 clicks in that order</p>
+        <p>3 Both players can click the Restart button after 3 rounds of play in no certain order</p>
+
+
+
+        <h5>Player1_count:{p1wins}</h5>     
+        <h5>Player2_count:{p2wins}</h5>
+        <h5>Draw_count:{draws}</h5>
             
         </>    
     );

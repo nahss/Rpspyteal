@@ -7,7 +7,8 @@ import {
     numLocalBytes,
     numLocalInts,
     connector,
-    abi
+    abi,
+    moves,
 } from "./constants";
 /* eslint import/no-webpack-loader-syntax: off */
 import approvalProgram from "!!raw-loader!../contracts/approval.teal";
@@ -253,8 +254,7 @@ export const play = async(senderAddress, game) => {
     params.flatFee = true;
     addresses.length = 0
     const atc = new algosdk.AtomicTransactionComposer();
-    
-    let play = utf8ToBase64String(game.move)
+    let play = utf8ToBase64String(moves[game.move])
 
 
     const signTxn = async(txnss) =>{
