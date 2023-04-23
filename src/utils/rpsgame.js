@@ -32,7 +32,7 @@ const compileProgram = async (programSource) => {
 const contract = new algosdk.ABIContract(abi);
 
 export const Deploygame = async(senderAddress) => {
-    console.log('Starting a new game ')
+    
     Appid.length = 0
     let params = await algodClient.getTransactionParams().do();
     params.fee = algosdk.ALGORAND_MIN_TX_FEE;
@@ -78,20 +78,20 @@ export const Deploygame = async(senderAddress) => {
     let txId = txn.txID().toString();
 
     // Sign & submit the transaction
-    console.log("Signed transaction with txID: %s", txId);
+    
     await algodClient.sendRawTransaction(decodedResult).do();
 
     // Wait for transaction to be confirmed
     let confirmedTxn = await algosdk.waitForConfirmation(algodClient, txId, 4);
 
     // Get the completed Transaction
-    console.log("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
+    
 
     // Get created application id and notify about completion
     let transactionResponse = await algodClient.pendingTransactionInformation(txId).do();
     let appId = transactionResponse['application-index'];
     Appid.push(appId)
-    console.log("Created new app-id: ", appId);
+    
     return appId;
 }
 
@@ -127,16 +127,14 @@ export const Connectgame = async(senderAddress, data) => {
         let txId = txn.txID().toString();
 
         let confirmedTxn = await algosdk.waitForConfirmation(algodClient, txId, 4);
-        console.log("Signed transaction with txID: %s", txId);
-        console.log("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
-        console.log("Connected to game")
+        
         Appid.push(parseInt(data.appid))
         return parseInt(data.appid)
     }
 
 
 export const create_challenge = async(senderAddress, game) => {
-    console.log("creating challenge...")
+    
     addresses.length = 0;
     let params = await algodClient.getTransactionParams().do();
     params.fee = algosdk.ALGORAND_MIN_TX_FEE;
@@ -191,11 +189,11 @@ export const create_challenge = async(senderAddress, game) => {
       })
   
     await atc.execute(algodClient, 4);
-    console.log('Challenge made')
+    
 }
 
 export const accept_challenge = async(senderAddress, game) => {
-    console.log("accepting challenge...")
+    
 
     let params = await algodClient.getTransactionParams().do();
     params.fee = algosdk.ALGORAND_MIN_TX_FEE;
@@ -243,12 +241,12 @@ export const accept_challenge = async(senderAddress, game) => {
       })
   
     await atc.execute(algodClient, 4);
-    console.log('Challenge accepted')
+    
 }
 
 export const play = async(senderAddress, game) => {
 
-    console.log("playing move...")
+    
     let params = await algodClient.getTransactionParams().do();
     params.fee = algosdk.ALGORAND_MIN_TX_FEE;
     params.flatFee = true;
@@ -308,11 +306,11 @@ export const play = async(senderAddress, game) => {
     const result = await atc.execute(algodClient, 4);
 
     addresses.push(result['methodResults'][1]['returnValue'], result['methodResults'][2]['returnValue'])
-    console.log("Move recorded")
+    
 }
 
 export const reveal = async(senderAddress) => {
-    console.log("Revealing result...")
+    
     let params = await algodClient.getTransactionParams().do();
     params.fee = algosdk.ALGORAND_MIN_TX_FEE;
     params.flatFee = true;
@@ -357,17 +355,17 @@ export const reveal = async(senderAddress) => {
         })
     const result = await atc.execute(algodClient, 4);
     for (const mr of result.methodResults) {
-        console.log(`${mr.returnValue}`);
+        
         ingame.push(mr.returnValue)
     }
     if (ingame[0] === 0n){
-        console.log('round ended in a draw')
+        
         draws += 1
     }else if(ingame[0] === 1n){
-        console.log('Player1 wins this round')
+        
         p1wins += 1
     }else if(ingame[0] === 2n){
-        console.log('Player2 wins this round')
+        
         p2wins += 1
     }
 }

@@ -25,18 +25,19 @@ const Playreveal = ({address, fetchBalance}) => {
             </div>
             <div style={{ display:"flex" , justifycontent:"center", alignitem:"center"}}>
             <Button 
-                    onClick={() => {
-                        let data = {move}
-                        play(address, data)
-                        .then(() => {
+                    onClick={async () => {
+                        try {
+                            let data = {move}
+                            await play(address, data)
                             toast(<NotificationSuccess text="Play was sucessfull."/>);
-                            fetchBalance(address);
-                        })
-                        .catch(error => {
+                            await fetchBalance(address);
+                        } catch (error) {
                             console.log(error);
                             toast(<NotificationError text="Making play was unsucessfull."/>);
+                          
+                        }finally {
                             setLoading(false);
-                        })
+                        }
                        
                     }}
                     color='blue'
@@ -49,17 +50,19 @@ const Playreveal = ({address, fetchBalance}) => {
             
             <div style={{ display:"flex" , justifycontent:"center", alignitem:"center"}}>
             <Button 
-                    onClick={() => {
-                        reveal(address)
-                            .then(() => {
-                                toast(<NotificationSuccess text=" Reavel successful"/>);
-                                fetchBalance(address);
-                            })
-                            .catch(error => {
-                                console.log(error);
-                                toast(<NotificationError text="Error occured."/>);
-                                setLoading(false);
-                            })
+                    onClick={async () => {
+                      try {
+                        await reveal(address)
+                    
+                        toast(<NotificationSuccess text=" Reavel successful"/>);
+                        await fetchBalance(address); 
+                      } catch (error) {
+                        console.log(error);
+                        toast(<NotificationError text="Error occured."/>);
+              
+                      } finally {
+                        setLoading(false);
+                    }
                         
                     }}
                     color='blue'

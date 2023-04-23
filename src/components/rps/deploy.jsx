@@ -73,20 +73,23 @@ const Deploy = ({address, fetchBalance}) => {
                     <div>
                     <Button
                         variant="dark"
-                        onClick={() => {
-                            setLoading(true);
-                            Deploygame(address)
-                                .then(() => {
-                                    toast(<NotificationSuccess text="Game started sucessfully."/>);
-                                    fetchBalance(address);
-                                    navigate('/challenge')
-                                })
-                                .catch(error => {
-                                    console.log(error);
-                                    toast(<NotificationError text="Starting game wasn't sucessfull."/>);
-                                    setLoading(false);
-                                })
-                            handleClose();
+                        onClick={ async() => {
+
+                            try {
+                                setLoading(true);
+                                await Deploygame(address)
+                                toast(<NotificationSuccess text="Game started sucessfully."/>);
+                                fetchBalance(address);
+                                navigate('/challenge')
+                                
+                            } catch (error) {
+                                console.log(error);
+                                toast(<NotificationError text="Starting game wasn't sucessfull."/>);
+                        
+                            }finally{
+                                setLoading(false);
+                                handleClose();
+                            }
                             
                         }}
                     >
@@ -123,21 +126,24 @@ const Deploy = ({address, fetchBalance}) => {
                     <div>
                     <Button
                         variant="dark"
-                        onClick={() => {
-                            let data = {isconnectedstatus, appid}
-                            setLoading(true);
-                            Connectgame(address, data)
-                            .then(() => {
+                        onClick={async () => {
+                            try {
+                                let data = {isconnectedstatus, appid}
+
+                                setLoading(true);
+                                await Connectgame(address, data)
+
                                 toast(<NotificationSuccess text="Game started sucessfully."/>);
-                                fetchBalance(address);
+                                await fetchBalance(address);
                                 navigate('/accept_challenge')
-                            })
-                            .catch(error => {
+                            } catch (error) {
                                 console.log(error);
                                 toast(<NotificationError text="Starting game wasn't sucessfull."/>);
+                        
+                            } finally {
                                 setLoading(false);
-                            })
-                            handleClose2();
+                                handleClose2();
+                            }
 
                         }}
                     >
